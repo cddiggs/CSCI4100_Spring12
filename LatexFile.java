@@ -4,7 +4,8 @@
  */
 
 /**
- *
+ *this class depends on RetrieveXML class
+ * generates latex test from database of questions
  * @author derek
  */
 import java.io.*;
@@ -58,20 +59,27 @@ public class LatexFile {
         List questionsbysection = XMLretriever.returnBySection(section);
         List questionsbydifficulty = XMLretriever.returnByDifficulty(difficulty);
         List LatexQuestions = new List();
-        String [] sectionquestions = questionsbysection.getItems();
-        String [] difficultyquestions = questionsbydifficulty.getItems();
-        for(int c=0;c<sectionquestions.length;c++){
-            for(int d=0;d<difficultyquestions.length;d++){
-                if(sectionquestions[c].matches(difficultyquestions[d]))
-                    LatexQuestions.add(difficultyquestions[d]);
+        for(int c=0;c<questionsbysection.getItemCount();c++){
+            for(int d=0;d<questionsbydifficulty.getItemCount();d++){
+                if(questionsbysection.getItem(c).compareTo(questionsbydifficulty.getItem(d))==0)
+                    LatexQuestions.add(questionsbysection.getItem(c));
             }
         }
- //       String [] QuestionstoWrite = LatexQuestions.getItems();
-        for(int c=0;c<LatexQuestions.getItemCount();c++){
-            latex_file_io.format("\n\n" + qcount + ") " + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_q"));
-            qcount++;
-        } 
-        
+       if(questionQuantity>=LatexQuestions.getItemCount()){
+            for(int c=0;c<questionQuantity;c++){
+               latex_file_io.format(qcount + ") " + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_instructions"));
+               latex_file_io.format("\n\n$" + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_q") + "$\n\n");
+               qcount++;
+            }
+        }
+        else{
+                System.out.println("Not enough questions in database. Adding " + LatexQuestions.getItemCount());
+                for(int c=0;c<LatexQuestions.getItemCount();c++){
+                   latex_file_io.format(qcount + ") " + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_instructions"));
+                   latex_file_io.format("\n\n$" + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_q") + "$\n\n");
+                   qcount++;
+                }
+        }        
     }
     
     /**
