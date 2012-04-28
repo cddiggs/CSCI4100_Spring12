@@ -30,10 +30,8 @@ public class RetrieveXML {
 		try {
 			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = dBF.newDocumentBuilder();
-			Document database = docBuilder.parse(new File("database.xml"));
-			
+			Document database = docBuilder.parse(new File("database.xml"));	
 			NodeList listOfQuestions = database.getElementsByTagName("question");
-			
 			for(int i=0; i<listOfQuestions.getLength(); i++) {
 				Node firstQuestion = listOfQuestions.item(i);
 				Element firstQuestionE = (Element)firstQuestion;
@@ -76,11 +74,11 @@ public class RetrieveXML {
 			for(int i=0; i<listOfQuestions.getLength(); i++) {
 				Node firstQuestion = listOfQuestions.item(i);
 				Element firstQuestionE = (Element)firstQuestion;
-				NodeList topiclist = firstQuestionE.getElementsByTagName("topic");
+				NodeList topiclist = firstQuestionE.getElementsByTagName("subject");
 				Element firstTopicElement = (Element)topiclist.item(0);
 				NodeList textTopicList = firstTopicElement.getChildNodes();
 				String topicvalue = textTopicList.item(0).getNodeValue().trim();
-				if (topicvalue == sectionTopic) {
+				if (topicvalue.compareTo(sectionTopic)==0){
 					NodeList idlist = firstQuestionE.getElementsByTagName("id");
 					Element firstIDElement = (Element)idlist.item(0);
 					NodeList textIDList = firstIDElement.getChildNodes();

@@ -16,6 +16,7 @@ public class LatexFile {
     private File latex_file;
     private int qcount;
     private RetrieveXML XMLretriever;
+    protected List LatexQuestions;
     /**
      * Constructor to create latex file for test
      * @param path the path of the filename for the test's latex file
@@ -55,16 +56,27 @@ public class LatexFile {
      * @param difficulty difficulty of questions
      * @param questionQuantity number of questions
      */
-    public void WriteLatexQuestions(double section, int difficulty, int questionQuantity){
+    public void WriteLatexQuestions(String subject, double section, int difficulty, int questionQuantity){
+        List questionsbysubject = XMLretriever.returnByTopic(subject);
         List questionsbysection = XMLretriever.returnBySection(section);
         List questionsbydifficulty = XMLretriever.returnByDifficulty(difficulty);
-        List LatexQuestions = new List();
-        for(int c=0;c<questionsbysection.getItemCount();c++){
-            for(int d=0;d<questionsbydifficulty.getItemCount();d++){
-                if(questionsbysection.getItem(c).compareTo(questionsbydifficulty.getItem(d))==0)
-                    LatexQuestions.add(questionsbysection.getItem(c));
+        List temp_list = new List();
+        LatexQuestions = new List();
+
+        for(int c=0;c<questionsbysubject.getItemCount();c++){
+            for(int d=0;d<questionsbysection.getItemCount();d++){
+                if(questionsbysubject.getItem(c).compareTo(questionsbysection.getItem(d))==0)
+                    temp_list.add(questionsbysection.getItem(d));
             }
         }
+        
+        for(int c=0;c<temp_list.getItemCount();c++){
+            for(int d=0;d<questionsbydifficulty.getItemCount();d++){
+               if(temp_list.getItem(c).compareTo(questionsbydifficulty.getItem(d))==0)
+                  LatexQuestions.add(questionsbydifficulty.getItem(c));
+            }
+        }
+        
        if(questionQuantity<=LatexQuestions.getItemCount()){
             for(int c=0;c<questionQuantity;c++){
                latex_file_io.format(qcount + ") " + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_instructions"));
