@@ -65,7 +65,7 @@ public class LatexFile {
                     LatexQuestions.add(questionsbysection.getItem(c));
             }
         }
-       if(questionQuantity>=LatexQuestions.getItemCount()){
+       if(questionQuantity<=LatexQuestions.getItemCount()){
             for(int c=0;c<questionQuantity;c++){
                latex_file_io.format(qcount + ") " + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_instructions"));
                latex_file_io.format("\n\n$" + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_q") + "$\n\n");

@@ -47,13 +47,13 @@ public class htmlFile {
             }
         }
         tex_file.WriteLatexQuestions(section, difficulty, questionQuantity);
-        if(questionQuantity>=LatexQuestions.getItemCount()){
+        if(questionQuantity<=LatexQuestions.getItemCount()){
             for(int c=0;c<questionQuantity;c++){
                 html_questions.add(LatexQuestions.getItem(c));
             }
         }
         else{
-                System.out.println("Not enough questions in database. Adding " + LatexQuestions.getItemCount());
+                System.out.println("Not enough questions in database. Adding " + LatexQuestions.getItemCount() + ".");
             for(int c=0;c<LatexQuestions.getItemCount();c++)
                 html_questions.add(LatexQuestions.getItem(c));
         }
@@ -78,8 +78,8 @@ public class htmlFile {
             p.waitFor();
             p=Runtime.getRuntime().exec("mv temp " + test_dir);
             p.waitFor();
-            p=Runtime.getRuntime().exec("rm temp.tex");
-            p.waitFor();
+//            p=Runtime.getRuntime().exec("rm temp.tex");
+ //           p.waitFor();
             File html_test = new File("index.html");
             if(!html_test.exists())
                 html_test.createNewFile();
