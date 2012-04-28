@@ -78,8 +78,8 @@ public class htmlFile {
             p.waitFor();
             p=Runtime.getRuntime().exec("mv temp " + test_dir);
             p.waitFor();
-//            p=Runtime.getRuntime().exec("rm temp.tex");
- //           p.waitFor();
+            p=Runtime.getRuntime().exec("rm temp.tex");
+            p.waitFor();
             File html_test = new File("index.html");
             if(!html_test.exists())
                 html_test.createNewFile();
