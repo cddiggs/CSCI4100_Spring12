@@ -36,17 +36,27 @@ public class htmlFile {
      * @param difficulty difficulty of problems
      * @param questionQuantity number of problems to add
      */    
-    public void WritehtmlQuestions(double section, int difficulty, int questionQuantity){
+    public void WritehtmlQuestions(String subject, double section, int difficulty, int questionQuantity){
+        List questionsbysubject = XMLretriever.returnByTopic(subject);
         List questionsbysection = XMLretriever.returnBySection(section);
         List questionsbydifficulty = XMLretriever.returnByDifficulty(difficulty);
+        List temp_list = new List();
         List LatexQuestions = new List();
-        for(int c=0;c<questionsbysection.getItemCount();c++){
-            for(int d=0;d<questionsbydifficulty.getItemCount();d++){
-                if(questionsbysection.getItem(c).compareTo(questionsbydifficulty.getItem(d))==0)
-                    LatexQuestions.add(questionsbysection.getItem(c));
+
+        for(int c=0;c<questionsbysubject.getItemCount();c++){
+            for(int d=0;d<questionsbysection.getItemCount();d++){
+                if(questionsbysubject.getItem(c).compareTo(questionsbysection.getItem(d))==0)
+                    temp_list.add(questionsbysection.getItem(d));
             }
         }
-        tex_file.WriteLatexQuestions(section, difficulty, questionQuantity);
+        
+        for(int c=0;c<temp_list.getItemCount();c++){
+            for(int d=0;d<questionsbydifficulty.getItemCount();d++){
+               if(temp_list.getItem(c).compareTo(questionsbydifficulty.getItem(d))==0)
+                  LatexQuestions.add(questionsbydifficulty.getItem(c));
+            }
+        }
+        tex_file.WriteLatexQuestions(subject, section, difficulty, questionQuantity);
         if(questionQuantity<=LatexQuestions.getItemCount()){
             for(int c=0;c<questionQuantity;c++){
                 html_questions.add(LatexQuestions.getItem(c));
