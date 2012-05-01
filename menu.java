@@ -14,17 +14,14 @@ public class menu {
                 System.out.println("TEST GENERATION PROGRAM");
 		System.out.println("Enter database name:");
 		String file = scan.nextLine();
-                System.out.println(file);
 
 		System.out.println("Select type of test to create:");
 		System.out.println("A. LaTeX/PDF");
 		System.out.println("B. Web");
 		String test = scan.nextLine();
-                System.out.println(test);
 		
                 System.out.println("Enter test name (alphanumeric characters and spaces only)");
                 String testname = scan.nextLine();
-                System.out.println(testname);
 		
                 LatexFile database1;
 		htmlFile database2 = new htmlFile(file);
@@ -40,7 +37,6 @@ public class menu {
 		}
 		System.out.println("Enter subject covered");
                 String subject = scan.nextLine();
-                System.out.println(subject);
                 if(lbase==true){
                     database1 = new LatexFile(testname + ".tex",file);
                     database1.WriteLatexHead(testname);
@@ -49,13 +45,10 @@ public class menu {
 		while (continuance){
 			System.out.println("Enter sections to print");
 			Double section = scan.nextDouble();
-                        System.out.println(section);
 			System.out.println("Enter question difficulties to print");
 			int difficulty = scan.nextInt();
-                        System.out.println(difficulty);
 			System.out.println("Enter max number of questions to print");
 			int number = scan.nextInt();
-                        System.out.println(number);
 			if(lbase)
 				database1.WriteLatexQuestions(subject,section,difficulty,number);
 			if (hbase)
@@ -63,7 +56,6 @@ public class menu {
 			System.out.println("Do you want to continue adding questions? Y = yes, N = no");
 
                         String resp = scan.next();
-                        System.out.println(resp);
 			if (resp.charAt(0) == ('Y' | 'y')){
 				continuance = true;
                                 System.out.println("yes");
@@ -71,10 +63,8 @@ public class menu {
 			else {
 				if(lbase==true)
 					database1.WriteLatexFoot();
-				if(hbase==true){
-                                        System.out.println("no");
+				if(hbase==true)
 					database2.GeneratehtmlTest(testname);
-                                }
                                 continuance = false;
 			}
 		} 

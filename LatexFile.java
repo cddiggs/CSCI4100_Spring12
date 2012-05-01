@@ -53,6 +53,7 @@ public class LatexFile {
     /**
      * Will add questions to the test from a section that are of certain difficulty
      * and will add no more than questionQuantity number of questions
+     * @param subject course subject title
      * @param section section of course material
      * @param difficulty difficulty of questions
      * @param questionQuantity number of questions

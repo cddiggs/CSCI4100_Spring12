@@ -32,6 +32,7 @@ public class htmlFile {
 /**
      * creates list of questions to add
      * adds problems to temp.tex
+     * @param subject course subject title
      * @param section lesson section
      * @param difficulty difficulty of problems
      * @param questionQuantity number of problems to add
