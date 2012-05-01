@@ -75,7 +75,7 @@ public class LatexFile {
         for(int c=0;c<temp_list.getItemCount();c++){
             for(int d=0;d<questionsbydifficulty.getItemCount();d++){
                if(temp_list.getItem(c).compareTo(questionsbydifficulty.getItem(d))==0)
-                  LatexQuestions.add(questionsbydifficulty.getItem(c));
+            	   LatexQuestions.add(questionsbydifficulty.getItem(d));
             }
         }
         
@@ -83,6 +83,7 @@ public class LatexFile {
             for(int c=0;c<questionQuantity;c++){
                latex_file_io.format(qcount + ") " + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_instructions"));
                latex_file_io.format("\n\n$" + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_q") + "$\n\n");
+               latex_file_io.format("\\vfill");
                qcount++;
             }
         }

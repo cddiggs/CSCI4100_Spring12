@@ -1,17 +1,13 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-
-
 public class menu {
 	
+	public static void main(String args[]) throws IOException, InterruptedException {
 	
-	
-	public static void main(String args[]) throws IOException {
-	
-            Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
             
-                System.out.println("TEST GENERATION PROGRAM");
+        System.out.println("TEST GENERATION PROGRAM");
 		System.out.println("Enter database name:");
 		String file = scan.nextLine();
 
@@ -20,10 +16,12 @@ public class menu {
 		System.out.println("B. Web");
 		String test = scan.nextLine();
 		
-                System.out.println("Enter test name (alphanumeric characters and spaces only)");
-                String testname = scan.nextLine();
+        System.out.println("Enter test name (alphanumeric characters and spaces only)");
+        String testname = scan.nextLine();
+        String useablename = testname;
+        testname = testname.replaceAll(" ", "_");
 		
-                LatexFile database1;
+        LatexFile database1 = null;
 		htmlFile database2 = new htmlFile(file);
 		boolean lbase = false; //true = Latex, false = HTML
 		boolean hbase = false; //true = HTML, false = Latex
@@ -36,11 +34,11 @@ public class menu {
 			lbase = false;
 		}
 		System.out.println("Enter subject covered");
-                String subject = scan.nextLine();
-                if(lbase==true){
-                    database1 = new LatexFile(testname + ".tex",file);
-                    database1.WriteLatexHead(testname);
-                }
+        String subject = scan.nextLine();
+        if(lbase==true){
+        	database1 = new LatexFile(testname + ".tex",file);
+        	database1.WriteLatexHead(useablename);
+        }
 		boolean continuance = true;
 		while (continuance){
 			System.out.println("Enter sections to print");
@@ -55,19 +53,19 @@ public class menu {
 				database2.WritehtmlQuestions(subject,section,difficulty,number);
 			System.out.println("Do you want to continue adding questions? Y = yes, N = no");
 
-                        String resp = scan.next();
-			if (resp.charAt(0) == ('Y' | 'y')){
+            String resp = scan.next();
+			if (resp.charAt(0) == ('Y' | 'y'))
 				continuance = true;
-                                System.out.println("yes");
-                        }
-			else {
-				if(lbase==true)
-					database1.WriteLatexFoot();
-				if(hbase==true)
-					database2.GeneratehtmlTest(testname);
-                                continuance = false;
-			}
+			else
+				continuance = false;
 		} 
-		System.out.println("Test file generated. Goodbye");		
+		System.out.println("Test file generated. Goodbye");
+		if(lbase==true) {
+			database1.WriteLatexFoot();
+			Runtime run = Runtime.getRuntime();
+			Process pr = run.exec("pdflatex " + testname + ".tex");
+		}
+		if(hbase==true)
+			database2.GeneratehtmlTest(testname);
 	}
 }

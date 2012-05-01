@@ -108,6 +108,7 @@ public class htmlFile {
         }
         catch(IOException e){
             System.out.println("IOexception");
+            e.printStackTrace();
         }
         
         catch(InterruptedException d){
