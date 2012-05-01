@@ -20,10 +20,11 @@ public class LatexFile {
     /**
      * Constructor to create latex file for test
      * @param path the path of the filename for the test's latex file
+     * @param dpath the path to the database file
      * @throws IOException 
      */
-    public LatexFile(String path) throws IOException{
-            XMLretriever = new RetrieveXML();
+    public LatexFile(String path, String dpath) throws IOException{
+            XMLretriever = new RetrieveXML(dpath);
             latex_file = new File(path);
             if(!latex_file.exists()){
                 latex_file.createNewFile();

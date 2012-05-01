@@ -16,8 +16,9 @@ public class RetrieveXML {
 	/**
 	 * Default constructor
 	 */
-	public RetrieveXML() {
-		
+    private String dpath;
+	public RetrieveXML(String path) {
+		dpath = path;
 	}
 	
 	/**
@@ -30,7 +31,7 @@ public class RetrieveXML {
 		try {
 			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = dBF.newDocumentBuilder();
-			Document database = docBuilder.parse(new File("database.xml"));	
+			Document database = docBuilder.parse(new File(dpath));	
 			NodeList listOfQuestions = database.getElementsByTagName("question");
 			for(int i=0; i<listOfQuestions.getLength(); i++) {
 				Node firstQuestion = listOfQuestions.item(i);
@@ -67,7 +68,7 @@ public class RetrieveXML {
 		try {
 			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = dBF.newDocumentBuilder();
-			Document database = docBuilder.parse(new File("database.xml"));
+			Document database = docBuilder.parse(new File(dpath));
 			
 			NodeList listOfQuestions = database.getElementsByTagName("question");
 			
@@ -106,7 +107,7 @@ public class RetrieveXML {
 		try {
 			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = dBF.newDocumentBuilder();
-			Document database = docBuilder.parse(new File("database.xml"));
+			Document database = docBuilder.parse(new File(dpath));
 			
 			NodeList listOfQuestions = database.getElementsByTagName("question");
 			
@@ -146,7 +147,7 @@ public class RetrieveXML {
 		try {
 			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = dBF.newDocumentBuilder();
-			Document database = docBuilder.parse(new File("database.xml"));
+			Document database = docBuilder.parse(new File(dpath));
                         while(questionID.charAt(0)=='0')
                             questionID = questionID.substring(1);
 			

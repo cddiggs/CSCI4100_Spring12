@@ -22,10 +22,10 @@ public class htmlFile {
          * constructor
          * @throws IOException 
          */
-    public htmlFile() throws IOException{
-            XMLretriever = new RetrieveXML();
+    public htmlFile(String dpath) throws IOException{
+            XMLretriever = new RetrieveXML(dpath);
             html_questions = new List();
-            tex_file = new LatexFile("temp.tex");
+            tex_file = new LatexFile("temp.tex",dpath);
             tex_file.WriteLatexHead("temp");       
     }
     
