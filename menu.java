@@ -64,8 +64,9 @@ public class menu {
 			database1.WriteLatexFoot();
 			Runtime run = Runtime.getRuntime();
 			Process pr = run.exec("pdflatex " + testname + ".tex");
+			pr.waitFor();
 		}
 		if(hbase==true)
-			database2.GeneratehtmlTest(testname);
+			database2.GeneratehtmlTest(useablename);
 	}
 }

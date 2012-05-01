@@ -97,6 +97,7 @@ public class htmlFile {
             Formatter html_test_io = new Formatter(html_test.getAbsolutePath());
             html_test_io.format("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n");
             html_test_io.format("<HTML>\n<HEAD>\n<TITLE>" + testname + "</TITLE>\n</HEAD>\n<BODY>\n\n");
+            html_test_io.format("<center><b>" + testname + "</b></center><br><br>");
             for(int c=0;c<html_questions.getItemCount();c++){
                 html_test_io.format((c+1) + ") " + XMLretriever.returnTestData(html_questions.getItem(c), "latex_instructions") + "\n<br>\n");
                 html_test_io.format("<IMG SRC=\"temp/img" + (c+1) + ".png\">\n<br><br><br>\n");
