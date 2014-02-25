@@ -1,7 +1,8 @@
+
 import java.awt.List;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -9,6 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 
 public class RetrieveXML {
@@ -176,4 +178,63 @@ public class RetrieveXML {
 		return returnvalue;
 	}
 	
+	public List returnAllQuestions(){
+		List questionsToReturn = new List();
+		try {
+			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = dBF.newDocumentBuilder();
+			Document database = docBuilder.parse(new File(dpath));	
+			NodeList listOfQuestions = database.getElementsByTagName("question");
+			for(int i=0; i<listOfQuestions.getLength(); i++) {
+				Node firstQuestion = listOfQuestions.item(i);
+				Element firstQuestionE = (Element)firstQuestion;
+				NodeList idlist = firstQuestionE.getElementsByTagName("id");
+				Element firstIDElement = (Element)idlist.item(0);
+				NodeList textIDList = firstIDElement.getChildNodes();
+				String questionID = textIDList.item(0).getNodeValue().trim();
+				questionsToReturn.add(questionID);
+			}
+		}catch(ParserConfigurationException pce) {
+			pce.printStackTrace();
+		}catch(SAXException se) {
+			se.printStackTrace();
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return questionsToReturn;
+	}
+
+	public String returnAllTestData(String questionID, String tagname) {
+		String returnvalue = "";
+		try {
+			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = dBF.newDocumentBuilder();
+			Document database = docBuilder.parse(new File(dpath));
+                        while(questionID.charAt(0)=='0')
+                            questionID = questionID.substring(1);
+			
+			NodeList listOfQuestions = database.getElementsByTagName("question");
+			for(int i=0; i<listOfQuestions.getLength(); i++) {
+				Node firstQuestion = listOfQuestions.item(i);
+				Element firstQuestionE = (Element)firstQuestion;
+				NodeList sectionlist = firstQuestionE.getElementsByTagName("id");
+				Element firstIDElement = (Element)sectionlist.item(0);
+				NodeList textIDList = firstIDElement.getChildNodes();
+				Integer IDvalue = Integer.valueOf(textIDList.item(0).getNodeValue().trim());
+				if (IDvalue.toString().compareTo(questionID)==0) {
+					NodeList returnList = firstQuestionE.getElementsByTagName(tagname);
+					Element ReturnElement = (Element)returnList.item(0);
+					NodeList textReturnList = ReturnElement.getChildNodes();
+					returnvalue = textReturnList.item(0).getNodeValue().trim();
+				}
+			}
+		}catch(ParserConfigurationException pce) {
+			pce.printStackTrace();
+		}catch(SAXException se) {
+			se.printStackTrace();
+		}catch(IOException ioe) {
+			ioe.printStackTrace();
+		}		
+		return returnvalue;
+	}
 }
