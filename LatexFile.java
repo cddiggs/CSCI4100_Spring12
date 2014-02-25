@@ -38,6 +38,7 @@ public class LatexFile {
      */
     public void WriteLatexHead(String testname){
         latex_file_io.format("\\documentclass[11pt,a4paper]{article}\n\\usepackage{amsmath,amsthm}\n\n\\newcommand{\\fn}[1]{{\\tt #1}}\n\\newcommand{\\cn}[1]{{\\tt \\char\"5C #1}}\n\n\\title{");
+        latex_file_io.format("$\\newline$");
         latex_file_io.format(testname);
         latex_file_io.format("}\n\n\\begin{document}\n\n\\maketitle\n\n");    
     }
@@ -96,6 +97,26 @@ public class LatexFile {
                 }
         }        
     }
+    public void WriteAllLatexQuestions(){
+        List allQuestions = XMLretriever.returnAllQuestions();
+        LatexQuestions = new List();
+
+        for(int c=0;c<allQuestions.getItemCount();c++){
+            	   LatexQuestions.add(allQuestions.getItem(c));
+            
+        }
+       
+            for(int c=0;c<allQuestions.getItemCount();c++){
+             //   latex_file_io.format("\n\n ID: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "id"));
+            //    latex_file_io.format("\n\n Subject: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "subject"));
+           //    latex_file_io.format("\n\n Section: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "section"));
+            //   latex_file_io.format("\n\n Topic: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "topic"));
+            //   latex_file_io.format("\n\n Difficulty: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "difficulty"));
+               latex_file_io.format("\n\n$" + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "latex_q") + "$");
+             //  latex_file_io.format("\n\n Instructions:" + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "latex_instructions"));
+            }
+        }
+       
     
     /**
      * writes foot of latex test file and closes the formatter
