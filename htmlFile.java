@@ -17,16 +17,19 @@ public class htmlFile {
         private RetrieveXML XMLretriever;
         private LatexFile tex_file;
         private List html_questions;
-        private String test_name;
+        private List all_html_questions;
+        private String test_name, dbpath;
 /**
          * constructor
          * @throws IOException 
          */
     public htmlFile(String dpath) throws IOException{
+    		dbpath=dpath;
             XMLretriever = new RetrieveXML(dpath);
             html_questions = new List();
+            all_html_questions = new List();
             tex_file = new LatexFile("temp.tex",dpath);
-            tex_file.WriteLatexHead("temp");       
+            tex_file.WriteLatexHead("temp");   
     }
     
 /**
@@ -43,6 +46,7 @@ public class htmlFile {
         List questionsbydifficulty = XMLretriever.returnByDifficulty(difficulty);
         List temp_list = new List();
         List LatexQuestions = new List();
+ 
 
         for(int c=0;c<questionsbysubject.getItemCount();c++){
             for(int d=0;d<questionsbysection.getItemCount();d++){
@@ -70,6 +74,20 @@ public class htmlFile {
         }
     }
     
+    
+    
+    public void WriteAllhtmlQuestions(){
+        List allQuestions = XMLretriever.returnAllQuestions();
+   
+     	tex_file.WriteAllLatexQuestions();
+     	//System.out.println(all_html_questions.getItemCount());
+
+        for(int c=0;c<allQuestions.getItemCount();c++){
+     	   all_html_questions.add(allQuestions.getItem(c));
+     
+ }
+        
+    }
 /**
      * depends on latex2html. latex2html generates png files from math mode 
      * sections in the temp.tex file. the directory created by latex2html
@@ -77,7 +95,7 @@ public class htmlFile {
      * and moves it to test directory
      * @param testname name of html test to be generated
      */
-    public void GeneratehtmlTest(String testname){
+    public void GeneratehtmlTest(String testname){ 
         String test_dir = testname;
         test_dir = test_dir.replaceAll(" ", "_");
         try{
@@ -101,6 +119,55 @@ public class htmlFile {
             for(int c=0;c<html_questions.getItemCount();c++){
                 html_test_io.format((c+1) + ") " + XMLretriever.returnTestData(html_questions.getItem(c), "latex_instructions") + "\n<br>\n");
                 html_test_io.format("<IMG SRC=\"temp/img" + (c+1) + ".png\">\n<br><br><br>\n");
+            }
+            html_test_io.format("\n\n</BODY>\n\n</HTML>");
+            html_test_io.close();
+            p=Runtime.getRuntime().exec("mv index.html " + test_dir);        
+            p.waitFor();
+        }
+        catch(IOException e){
+            System.out.println("IOexception");
+            e.printStackTrace();
+        }
+        
+        catch(InterruptedException d){
+            System.out.println("InterruptedException");
+        }
+    }
+    
+    public void GenerateAllHtml(String testname){ 
+        String test_dir = testname;
+        test_dir = test_dir.replaceAll(" ", "_");
+        try{
+            tex_file.WriteLatexFoot();
+            Process p;
+            p = Runtime.getRuntime().exec("mkdir " + test_dir);
+            p.waitFor();
+            p=Runtime.getRuntime().exec("latex2html temp.tex");  
+            p.waitFor();
+            p=Runtime.getRuntime().exec("mv temp " + test_dir);
+            p.waitFor();
+            p=Runtime.getRuntime().exec("rm temp.tex");
+            p.waitFor();
+            File html_test = new File("index.html");
+            if(!html_test.exists())
+                html_test.createNewFile();
+            Formatter html_test_io = new Formatter(html_test.getAbsolutePath());
+            html_test_io.format("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n");
+            html_test_io.format("<HTML>\n<HEAD>\n<TITLE>" + dbpath + "</TITLE>\n</HEAD>\n<BODY>\n\n");
+            html_test_io.format("<center><b>" + dbpath + "</b></center><br><br>");
+            for(int c=0;c<all_html_questions.getItemCount();c++){
+            	html_test_io.format("ID: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "id")+ "\n<br>\n");
+               html_test_io.format("Subject: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "subject")+ "\n<br>\n");
+               html_test_io.format("Section: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "section")+ "\n<br>\n");
+              html_test_io.format("Topic: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "topic")+ "\n<br>\n");
+               html_test_io.format("Difficulty: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "difficulty")+ "\n<br>\n");
+                html_test_io.format("Question Instructions: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "latex_instructions") + "\n<br>\n");
+                html_test_io.format("Question (latex output): <IMG SRC=\"temp/img" + (c+1) + ".png\">\n<br>\n");
+                html_test_io.format("Jepardy Questions: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "jeopardy_q") + "\n<br>\n");
+                html_test_io.format("Jepardy Answers: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "jeopardy_a") + "\n<br><br><br>\n");
+
+
             }
             html_test_io.format("\n\n</BODY>\n\n</HTML>");
             html_test_io.close();
