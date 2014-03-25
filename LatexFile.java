@@ -97,6 +97,9 @@ public class LatexFile {
                 }
         }        
     }
+    /**
+     * Will write only the "latex_q" tag of all the questions of the database to a Latex file 
+     */
     public void WriteAllLatexQuestions(){
         List allQuestions = XMLretriever.returnAllQuestions();
         LatexQuestions = new List();
@@ -107,13 +110,7 @@ public class LatexFile {
         }
        
             for(int c=0;c<allQuestions.getItemCount();c++){
-             //   latex_file_io.format("\n\n ID: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "id"));
-            //    latex_file_io.format("\n\n Subject: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "subject"));
-           //    latex_file_io.format("\n\n Section: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "section"));
-            //   latex_file_io.format("\n\n Topic: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "topic"));
-            //   latex_file_io.format("\n\n Difficulty: " + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "difficulty"));
-               latex_file_io.format("\n\n$" + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "latex_q") + "$");
-             //  latex_file_io.format("\n\n Instructions:" + XMLretriever.returnAllTestData(LatexQuestions.getItem(c), "latex_instructions"));
+               latex_file_io.format("\n\n$" + XMLretriever.returnTestData(LatexQuestions.getItem(c), "latex_q") + "$");
             }
         }
        

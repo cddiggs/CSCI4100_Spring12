@@ -23,6 +23,10 @@ public class RetrieveXML {
 		dpath = path;
 	}
 	
+	public List returnByGraph(){
+		List list = new List();
+		return list;
+	}
 	/**
 	 * Function to return question IDs for later output processing.
 	 * @param section
@@ -97,6 +101,12 @@ public class RetrieveXML {
 			ioe.printStackTrace();
 		}
 		return questionsToReturn;
+	}
+	
+	public List returnByID(int ID){
+		List questionsToReturn = new List();
+
+	return questionsToReturn;
 	}
 	
 	/**
@@ -177,7 +187,10 @@ public class RetrieveXML {
 		}		
 		return returnvalue;
 	}
-	
+	/**
+	 * Function to return all question IDs for later output processing.
+	 * @return list of the all question IDs
+	 */
 	public List returnAllQuestions(){
 		List questionsToReturn = new List();
 		try {
@@ -204,37 +217,5 @@ public class RetrieveXML {
 		return questionsToReturn;
 	}
 
-	public String returnAllTestData(String questionID, String tagname) {
-		String returnvalue = "";
-		try {
-			DocumentBuilderFactory dBF = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = dBF.newDocumentBuilder();
-			Document database = docBuilder.parse(new File(dpath));
-                        while(questionID.charAt(0)=='0')
-                            questionID = questionID.substring(1);
-			
-			NodeList listOfQuestions = database.getElementsByTagName("question");
-			for(int i=0; i<listOfQuestions.getLength(); i++) {
-				Node firstQuestion = listOfQuestions.item(i);
-				Element firstQuestionE = (Element)firstQuestion;
-				NodeList sectionlist = firstQuestionE.getElementsByTagName("id");
-				Element firstIDElement = (Element)sectionlist.item(0);
-				NodeList textIDList = firstIDElement.getChildNodes();
-				Integer IDvalue = Integer.valueOf(textIDList.item(0).getNodeValue().trim());
-				if (IDvalue.toString().compareTo(questionID)==0) {
-					NodeList returnList = firstQuestionE.getElementsByTagName(tagname);
-					Element ReturnElement = (Element)returnList.item(0);
-					NodeList textReturnList = ReturnElement.getChildNodes();
-					returnvalue = textReturnList.item(0).getNodeValue().trim();
-				}
-			}
-		}catch(ParserConfigurationException pce) {
-			pce.printStackTrace();
-		}catch(SAXException se) {
-			se.printStackTrace();
-		}catch(IOException ioe) {
-			ioe.printStackTrace();
-		}		
-		return returnvalue;
-	}
+	
 }

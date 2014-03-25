@@ -112,6 +112,7 @@ public class htmlFile {
             File html_test = new File("index.html");
             if(!html_test.exists())
                 html_test.createNewFile();
+            
             Formatter html_test_io = new Formatter(html_test.getAbsolutePath());
             html_test_io.format("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n");
             html_test_io.format("<HTML>\n<HEAD>\n<TITLE>" + testname + "</TITLE>\n</HEAD>\n<BODY>\n\n");
@@ -134,7 +135,14 @@ public class htmlFile {
             System.out.println("InterruptedException");
         }
     }
-    
+    /**
+     * This method will write all questions and all their data to a html file.
+     * This method depends on latex2html unix command.
+     * The command, latex2html, generates png files from math mode 
+     * sections in the temp.tex file. The directory created by latex2html
+     * is moved to a directory named after String testname. 
+     * @param testname - name of html test to be generated
+     */
     public void GenerateAllHtml(String testname){ 
         String test_dir = testname;
         test_dir = test_dir.replaceAll(" ", "_");
@@ -152,20 +160,21 @@ public class htmlFile {
             File html_test = new File("index.html");
             if(!html_test.exists())
                 html_test.createNewFile();
+            System.out.println(html_test.getAbsolutePath());
             Formatter html_test_io = new Formatter(html_test.getAbsolutePath());
             html_test_io.format("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n");
             html_test_io.format("<HTML>\n<HEAD>\n<TITLE>" + dbpath + "</TITLE>\n</HEAD>\n<BODY>\n\n");
             html_test_io.format("<center><b>" + dbpath + "</b></center><br><br>");
             for(int c=0;c<all_html_questions.getItemCount();c++){
-            	html_test_io.format("ID: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "id")+ "\n<br>\n");
-               html_test_io.format("Subject: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "subject")+ "\n<br>\n");
-               html_test_io.format("Section: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "section")+ "\n<br>\n");
-              html_test_io.format("Topic: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "topic")+ "\n<br>\n");
-               html_test_io.format("Difficulty: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "difficulty")+ "\n<br>\n");
-                html_test_io.format("Question Instructions: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "latex_instructions") + "\n<br>\n");
-                html_test_io.format("Question (latex output): <IMG SRC=\"temp/img" + (c+1) + ".png\">\n<br>\n");
-                html_test_io.format("Jepardy Questions: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "jeopardy_q") + "\n<br>\n");
-                html_test_io.format("Jepardy Answers: " + XMLretriever.returnAllTestData(all_html_questions.getItem(c), "jeopardy_a") + "\n<br><br><br>\n");
+            	html_test_io.format("ID: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "id")+ "\n<br>\n");
+               html_test_io.format("Subject: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "subject")+ "\n<br>\n");
+               html_test_io.format("Section: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "section")+ "\n<br>\n");
+              html_test_io.format("Topic: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "topic")+ "\n<br>\n");
+               html_test_io.format("Difficulty: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "difficulty")+ "\n<br>\n");
+                html_test_io.format("Question Instructions: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "latex_instructions") + "\n<br>\n");
+                html_test_io.format("Question (latex output): <IMG SRC=\"temp/img" + (c+2) + ".png\">\n<br>\n");
+                html_test_io.format("Jepardy Questions: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "jeopardy_q") + "\n<br>\n");
+                html_test_io.format("Jepardy Answers: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "jeopardy_a") + "\n<br><br><br>\n");
 
 
             }
