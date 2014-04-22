@@ -1,21 +1,28 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 
 public class menu {
     public static Scanner scan = new Scanner(System.in);
     public static String testname, file;
     public static String[] databaseList; 
+    public static displayQuestions dQ;
+    public static addOrRemoveDB addorremoveDB;
 
 
-	public static void main(String args[]) throws InterruptedException, IOException {
-        System.out.println("Would you like to use:");
+
+
+	public static void main(String args[]) throws InterruptedException, IOException, ParserConfigurationException, TransformerException, SAXException {
+		System.out.println("Would you like to use:");
         System.out.println("a. GUI Menu");
         System.out.println("b. Command Line Menu:");
     	String option = scan.nextLine();
@@ -31,7 +38,8 @@ public class menu {
 
 	}
 	
-	public static void commandOptions() throws InterruptedException, IOException {
+	public static void commandOptions() throws InterruptedException, IOException, ParserConfigurationException, TransformerException, SAXException {
+
         System.out.println("TEST GENERATION PROGRAM");
 		System.out.println("Please select an option to choose from:");
 		System.out.println("a. Make a PDF Test");
@@ -60,6 +68,7 @@ public class menu {
     	else         System.out.println("Invalid Option");
 
 	}
+	
 	public static void makeTest(boolean trueOrFalse) throws IOException, InterruptedException {
         System.out.println("Please enter the name of the Test (alphanumeric characters and spaces only):");
         testname = scan.nextLine();
@@ -67,15 +76,13 @@ public class menu {
 		
 		
 		System.out.println("Please select a Database from the list:");
-		BufferedReader reader = new BufferedReader(new FileReader("./src/database.txt"));
-		String line = null;
-		int i=1;
-
-		databaseList = new String[20];
-		while ((line = reader.readLine()) != null) {
-			databaseList[i]=line;
-			System.out.println(i+ ": "+line);
-			i++;
+		System.out.println("Here is the current list of Databases:");
+		addorremoveDB= new addOrRemoveDB();
+		String[] databaseList = addorremoveDB.displayDBList();
+		for (int i =1; i<=databaseList.length; i++){
+			if (databaseList[i]==null)
+				break;
+			System.out.println(i+": "+ databaseList[i]);
 		}
 		int fileNumber;
 		fileNumber=scan.nextInt();
@@ -115,7 +122,8 @@ public class menu {
 		System.out.println("Would you like for the questions to be displayed in your default browser? (y/n)");
 		String option = scan.next();
 	  	if (option.charAt(0)=='y'||option.charAt(0)=='Y'){
-    		displayQuestions();
+    		dQ=new displayQuestions(testname, file);
+    		dQ.display();
     	}
     	else {	}
 		System.out.println("Enter the number of questions you would like to add:");
@@ -134,37 +142,15 @@ public class menu {
 		
 
 	}
-	public static void displayQuestions() throws IOException, InterruptedException {
 
-        LatexFile database1 = null;
-    	database1 = new LatexFile(testname + ".tex",file);
-    	database1.WriteLatexHead(testname);
-        database1.WriteAllLatexQuestions();
-		database1.WriteLatexFoot();
-		
-		
-        htmlFile database2 = null;
-    	database2 = new htmlFile(file);
-    	database2.WriteAllhtmlQuestions();
-    	database2.GenerateAllHtml(testname);
-
-    	Process p;
-        p = Runtime.getRuntime().exec("firefox " + "./" + testname + "/index.html &");
-        p.waitFor();
-		
-}
-	
-	public static void addOrRemoveDatabase() throws IOException, InterruptedException{
+	public static void addOrRemoveDatabase() throws IOException, InterruptedException, ParserConfigurationException, SAXException, TransformerException{
 			System.out.println("Here is the current list of Databases:");
-			BufferedReader reader = new BufferedReader(new FileReader("./src/database.txt"));
-			String line = null;
-			int i=1;
-	
-			databaseList = new String[20];
-			while ((line = reader.readLine()) != null) {
-				databaseList[i]=line;
-				System.out.println(i+ ": "+line);
-				i++;
+			addorremoveDB= new addOrRemoveDB();
+			String[] databaseList = addorremoveDB.displayDBList();
+			for (int i =1; i<=databaseList.length; i++){
+				if (databaseList[i]==null)
+					break;
+				System.out.println(i+": "+ databaseList[i]);
 			}
 			
 			System.out.println("Would you like to:");
@@ -174,12 +160,10 @@ public class menu {
 			if (option.charAt(0)=='a'||option.charAt(0)=='A'){
 				System.out.println("Please type the path to the new Database you would like to add from the list:");
 				String databasePath=scan.nextLine();
-				BufferedWriter writer = new BufferedWriter(new FileWriter("./src/database.txt",true));
-			
-				writer.append(databasePath);
-				writer.newLine();
-				writer.close();
-				System.out.println("You have successfully added a new Database to the list:");
+				addorremoveDB= new addOrRemoveDB();
+				addorremoveDB.addDB(databasePath);
+				System.out.println("You have successfully added a new Database to the list");
+
 				}
 		  	else if (option.charAt(0)=='b'||option.charAt(0)=='B'){
 				System.out.println("Please select a Database you would like to remove from the list");
@@ -189,50 +173,39 @@ public class menu {
 					System.out.println("Invalid Option");
 				}
 				else{
-					BufferedReader reader2 = new BufferedReader(new FileReader("./src/database.txt"));
-					BufferedWriter writer = new BufferedWriter(new FileWriter("./src/tempDatabase.txt",true));
-
 					String lineToRemove = databaseList[fileNumber];
-					String currentLine;
-
-					while((currentLine = reader2.readLine()) != null) {
-					    // trim newline when comparing with lineToRemove
-					    String trimmedLine = currentLine.trim();
-					    if(trimmedLine.equals(lineToRemove)) continue;
-					    writer.write(currentLine);
-						writer.newLine();					
-						}	
-					writer.close();
-			    	Process p;
-			        p = Runtime.getRuntime().exec("mv ./src/tempDatabase.txt ./src/database.txt");
-			        p.waitFor();
+					addorremoveDB= new addOrRemoveDB();
+					addorremoveDB.removeDB(lineToRemove);
+					
 				}
-			
-			
+
 		  	}
 			else 		System.out.println("Invalid Option");
 	
 			}
 	
-	public static void addOrEditQuestions() throws IOException, InterruptedException{
+	public static void addOrEditQuestions() throws TransformerException, ParserConfigurationException, IOException, InterruptedException, SAXException {
 		System.out.println("Please select a Database from the list:");
-		BufferedReader reader = new BufferedReader(new FileReader("./src/database.txt"));
-		String line = null;
-		int i=1;
-
-		databaseList = new String[20];
-		while ((line = reader.readLine()) != null) {
-			databaseList[i]=line;
-			System.out.println(i+ ": "+line);
-			i++;
+		System.out.println("Here is the current list of Databases:");
+		addorremoveDB= new addOrRemoveDB();
+		String[] databaseList = addorremoveDB.displayDBList();
+		for (int i =1; i<=databaseList.length; i++){
+			if (databaseList[i]==null)
+				break;
+			System.out.println(i+": "+ databaseList[i]);
 		}
-		int fileNumber;
+		
+		int fileNumber;	
+		String database1="";
+
 		fileNumber=scan.nextInt();
 		if (databaseList[fileNumber]== null){
 			System.out.println("Invalid Option");
 			System.exit(0);
 
 		}
+		else
+			database1=databaseList[fileNumber];
 		
 		
 		System.out.println("Would you like to:");
@@ -241,26 +214,110 @@ public class menu {
 		System.out.println("c. Remove a quesion from the Database?");
 
 		String option = scan.next();
+		
 		if (option.charAt(0)=='a'||option.charAt(0)=='A'){
-			//executes function to add blank tags in xml
-			//executes function to edit the blank tags
+		  	addOrEditQuestionsFromDB add = new addOrEditQuestionsFromDB(databaseList[fileNumber]);
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Enter the Subject:");
+			String subjectName=scan.nextLine();
+			System.out.println("Enter the Section Number:");
+			String sectionNumber=scan.nextLine();
+			System.out.println("Enter the Topic:");
+			String topicName=scan.nextLine();
+			System.out.println("Enter the Difficulty (1-10):");
+			String difficultyNumber=scan.nextLine();
+			System.out.println("Enter the Instruction:");
+			String instruction=scan.nextLine();
+			System.out.println("Enter the Latex/HTML Question:");
+			String lQuestion=scan.nextLine();
+			System.out.println("Enter the Jeopardy Question:");
+			String jQuestion=scan.nextLine();
+			System.out.println("Enter the Jeopardy Answer:");
+			String jAnswer=scan.nextLine();
+		  	add.addNewElement(subjectName, sectionNumber, topicName, difficultyNumber, instruction, lQuestion, jQuestion, jAnswer);
+
 		}
 		else if (option.charAt(0)=='b'||option.charAt(0)=='B'){
 			System.out.println("Would you like for the questions to be displayed in the Firefox browser? (y/n)");
 			String option2 = scan.next();
 		  	if (option2.charAt(0)=='y'||option2.charAt(0)=='Y'){
-		  		testname="display";
-		  		file=databaseList[fileNumber];
-	    		displayQuestions();
+	    		dQ=new displayQuestions("display", databaseList[fileNumber]);
+	    		dQ.display();
 	    	}
-	    	else {	}
-			//executes function to edit tags of an existing question, refer to question by ID
+			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+			Document document = documentBuilder.parse(new File(databaseList[fileNumber]));
+		  	addOrEditQuestionsFromDB edit = new addOrEditQuestionsFromDB(databaseList[fileNumber]);
+		  	String tagname;
+		  	String id="";
+		  	String newInfo="";
+			System.out.println("Type the id number of the question you would like to edit, 1 - " + document.getElementsByTagName("id").getLength()+": ");
+			id+=scan.nextInt();
+			System.out.println("Choose the tagname of the question you would like to edit: " +
+					"\n a. id" +
+					"\n b. subject" +
+					"\n c. section" +
+					"\n d. topic" +
+					"\n e. difficulty" +
+					"\n f. latex_instruction" +
+					"\n g. latex_q" +
+					"\n h. jeopardy_q" +
+					"\n i. jeopardy_a");
+			tagname=scan.next();
+			if (tagname.charAt(0)=='a'||tagname.charAt(0)=='A')
+				tagname="id";
+			else if (tagname.charAt(0)=='b'||tagname.charAt(0)=='B')
+				tagname="subject";
+			else if (tagname.charAt(0)=='c'||tagname.charAt(0)=='C')
+				tagname="section";
+			else if (tagname.charAt(0)=='d'||tagname.charAt(0)=='D')
+				tagname="difficulty";
+			else if (tagname.charAt(0)=='e'||tagname.charAt(0)=='E')
+				tagname="topic";
+			else if (tagname.charAt(0)=='f'||tagname.charAt(0)=='F')
+				tagname="latex_instruction";
+			else if (tagname.charAt(0)=='g'||tagname.charAt(0)=='G')
+				tagname="latex_q";
+			else if (tagname.charAt(0)=='h'||tagname.charAt(0)=='H')
+				tagname="jeopardy_q";
+			else {		
+				System.out.println("Invalid Option ");
+				System.exit(0);
+			}
+
+			
+			System.out.println("Type the new content of the \"" +tagname+"\" tagname: ");
+			newInfo+=scan.next();
+
+
+		  	edit.editQuestion(id,tagname,newInfo);
+		  	
+			if(tagname=="id"&&Integer.parseInt(id)<Integer.parseInt(newInfo)){
+			  	for(int j=Integer.parseInt(id)+1; j<=Integer.parseInt(newInfo); j++){
+				edit.editQuestion(Integer.toString(j), "id", Integer.toString(j-1));
+			}}
+			else if (tagname=="id"&&Integer.parseInt(newInfo)<Integer.parseInt(id)){
+			  	for(int j=Integer.parseInt(newInfo); j<Integer.parseInt(id); j++){
+						System.out.println(document.getElementsByTagName(tagname).getLength()-j+", "+Integer.parseInt(document.getElementsByTagName(tagname).item(Integer.parseInt(id)-1).getTextContent()));
+				edit.editQuestion(Integer.toString(j), "id", Integer.toString(j+1));
+			}}
+			edit.sortQuestions();
 		}
 		else if (option.charAt(0)=='c'||option.charAt(0)=='C'){
-			//executes function to remove entire question from database
+		  	String id;
+
+			System.out.println("Type the id number of the question you would like to remove: ");
+			id=scan.next();
+			addOrEditQuestionsFromDB delete = new addOrEditQuestionsFromDB(databaseList[fileNumber]);
+			delete.removeElement(id);
+			delete.editQuestionID(id);
+
+
 		}
 		else 		System.out.println("Invalid Option");
 
-	}
-}
+
+}}
+
 
