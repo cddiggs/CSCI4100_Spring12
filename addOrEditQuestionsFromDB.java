@@ -54,7 +54,7 @@ public class addOrEditQuestionsFromDB {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	public void addNewElement(String subjectName, String sectionNumber, String topicName, String difficultyNumber, String instruction, String lQuestion, String jQuestion, String jAnswer) throws TransformerException, ParserConfigurationException, SAXException, IOException {
+	public void addNewElement(String subjectName, String sectionNumber, String topicName, String difficultyNumber, String instruction, String Graph, String lAnswer, String gAnswer, String lQuestion, String jQuestion, String jAnswer) throws TransformerException, ParserConfigurationException, SAXException, IOException {
 
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -81,11 +81,18 @@ public class addOrEditQuestionsFromDB {
 		 Node difficulty = document.createElement("difficulty");
 		 difficulty.setTextContent(difficultyNumber);
 		 question.appendChild(difficulty);
-		 Element latex_instructions = document.createElement("latex_instructions");
+		 Node latex_instructions = document.createElement("latex_instructions");
 		 latex_instructions.setTextContent(instruction);
 		 question.appendChild(latex_instructions);
-		 //Element image = document.createElement("image");
-		 //question.appendChild(image);
+		 Node graph = document.createElement("graph");
+		 graph.setTextContent(Graph);
+		 question.appendChild(graph);
+		 Node latex_a = document.createElement("latex_a");
+		 latex_a.setTextContent(lAnswer);
+		 question.appendChild(latex_a);
+		 Node graph_a = document.createElement("graph_a");
+		 graph_a.setTextContent(gAnswer);
+		 question.appendChild(graph_a);
 		 Node latex_q = document.createElement("latex_q");
 		 latex_q.setTextContent(lQuestion);
 		 question.appendChild(latex_q);
@@ -187,8 +194,17 @@ public class addOrEditQuestionsFromDB {
 					 Element latex_instructions = document.createElement("latex_instructions");
 					 latex_instructions.setTextContent(retrievesQuestions.returnTestData(String.valueOf(i), "latex_instructions"));
 					 question.appendChild(latex_instructions);
-					 //Element image = document.createElement("image");
-					 //question.appendChild(image);
+					 
+					 Node graph = document.createElement("graph");
+					 graph.setTextContent(retrievesQuestions.returnTestData(String.valueOf(i), "graph"));
+					 question.appendChild(graph);
+					 Node latex_a = document.createElement("latex_a");
+					 latex_a.setTextContent(retrievesQuestions.returnTestData(String.valueOf(i), "latex_a"));
+					 question.appendChild(latex_a);
+					 Node graph_a = document.createElement("graph_a");
+					 graph_a.setTextContent(retrievesQuestions.returnTestData(String.valueOf(i), "graph_a"));
+					 question.appendChild(graph_a);
+					 
 					 Node latex_q = document.createElement("latex_q");
 					 latex_q.setTextContent(retrievesQuestions.returnTestData(String.valueOf(i), "latex_q"));
 					 question.appendChild(latex_q);

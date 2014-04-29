@@ -172,6 +172,10 @@ public class htmlFile {
               html_test_io.format("Topic: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "topic")+ "\n<br>\n");
                html_test_io.format("Difficulty: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "difficulty")+ "\n<br>\n");
                 html_test_io.format("Question Instructions: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "latex_instructions") + "\n<br>\n");
+                html_test_io.format("Question Graph Path: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "graph") + "\n<br>\n");
+                html_test_io.format("Answer: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "latex_a") + "\n<br>\n");
+                html_test_io.format("Answer Graph Path: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "graph_a") + "\n<br>\n");
+
                 html_test_io.format("Question (latex output): <IMG SRC=\"temp/img" + (c+2) + ".png\">\n<br>\n");
                 html_test_io.format("Jepardy Questions: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "jeopardy_q") + "\n<br>\n");
                 html_test_io.format("Jepardy Answers: " + XMLretriever.returnTestData(all_html_questions.getItem(c), "jeopardy_a") + "\n<br><br><br>\n");

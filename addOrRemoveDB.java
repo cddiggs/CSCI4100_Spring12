@@ -1,8 +1,10 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -51,7 +53,44 @@ public class addOrRemoveDB {
 		writer.append(databasePath);
 		writer.newLine();
 		writer.close();
+		
+		File f = new File(databasePath);
+		if(!f.exists() && !f.isDirectory()) {
+			writer = new BufferedWriter(new FileWriter(databasePath,true));
+			writer.append("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?><!-- XML Database - Math test question bank v0.2 29 March 2014 --><!--ENTITY infin \"&#8734;\"--><!--ENTITY radic \"&#8730;\"--><TestBank>");
+			writer.newLine();
+			writer.append("</TestBank>");
+			writer.newLine();
 
+			writer.close();
+			
+			addOrEditQuestionsFromDB add = new addOrEditQuestionsFromDB(databasePath);
+			Scanner scan = new Scanner(System.in);
+			System.out.println("Enter the Subject:");
+			String subjectName=scan.nextLine();
+			System.out.println("Enter the Section Number:");
+			String sectionNumber=scan.nextLine();
+			System.out.println("Enter the Topic:");
+			String topicName=scan.nextLine();
+			System.out.println("Enter the Difficulty (1-10):");
+			String difficultyNumber=scan.nextLine();
+			System.out.println("Enter the Instruction:");
+			String instruction=scan.nextLine();
+			System.out.println("Enter the Question Graph Path:");
+			String graph=scan.nextLine();
+			System.out.println("Enter the Answer:");
+			String latex_a=scan.nextLine();
+			System.out.println("Enter the Answer Graph Path:");
+			String graph_a=scan.nextLine();
+			System.out.println("Enter the Latex Question:");
+			String lQuestion=scan.nextLine();
+			System.out.println("Enter the Jeopardy Question:");
+			String jQuestion=scan.nextLine();
+			System.out.println("Enter the Jeopardy Answer:");
+			String jAnswer=scan.nextLine();
+		  	add.addNewElement(subjectName, sectionNumber, topicName, difficultyNumber, instruction, graph, latex_a, graph_a, lQuestion, jQuestion, jAnswer);
+
+		}
 	}
 	/**
 	 * This method removes a path to a database from "./src/database.txt".

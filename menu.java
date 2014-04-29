@@ -17,6 +17,9 @@ public class menu {
     public static String[] databaseList; 
     public static displayQuestions dQ;
     public static addOrRemoveDB addorremoveDB;
+    public static boolean loop1;
+    public static boolean loop2;
+
 
 
 
@@ -24,17 +27,17 @@ public class menu {
 	public static void main(String args[]) throws InterruptedException, IOException, ParserConfigurationException, TransformerException, SAXException {
 		System.out.println("Would you like to use:");
         System.out.println("a. GUI Menu");
-        System.out.println("b. Command Line Menu:");
+        System.out.println("b. Command Line Menu");
     	String option = scan.nextLine();
     	
     	if (option.charAt(0)=='a'||option.charAt(0)=='A'){
     		GUIMenu menu = new GUIMenu();
     	}
     	else if (option.charAt(0)=='b'||option.charAt(0)=='B'){
-    		
-            commandOptions();
+    		while(true)
+    			commandOptions();
     	}
-    	else         System.out.println("Invalid Option");
+    	else         System.out.println("Invalid Option. Please Select Another Option.");
 
 	}
 	
@@ -47,6 +50,9 @@ public class menu {
 		System.out.println("c. Make a Jeopardy Board");
 		System.out.println("d. Add or remove a Database from the List");
 		System.out.println("e. Add or edit questions in a Database");
+		System.out.println("f. Exit");
+
+		
 
 		String option = scan.nextLine();
     	
@@ -60,10 +66,17 @@ public class menu {
     		//makeJeopardBoard(): function to create jeopardy board here
     	}
     	else if (option.charAt(0)=='d'||option.charAt(0)=='D'){
-    		addOrRemoveDatabase();
+    		loop1=true;
+    		while(loop1==true)
+    			addOrRemoveDatabase();
     	}
     	else if (option.charAt(0)=='e'||option.charAt(0)=='E'){
+    		loop2=true;
+    		while(loop2==true)
     		addOrEditQuestions();
+    	}
+    	else if (option.charAt(0)=='f'||option.charAt(0)=='F'){
+    		System.exit(0);
     	}
     	else         System.out.println("Invalid Option");
 
@@ -84,8 +97,7 @@ public class menu {
 				break;
 			System.out.println(i+": "+ databaseList[i]);
 		}
-		int fileNumber;
-		fileNumber=scan.nextInt();
+		int fileNumber=Integer.parseInt(scan.nextLine());
 		if (databaseList[fileNumber]== null){
 			System.out.println("Invalid Option");
 			System.exit(0);
@@ -156,6 +168,8 @@ public class menu {
 			System.out.println("Would you like to:");
 			System.out.println("a. Add a Database to the list?");
 			System.out.println("b. Remove a Database from the list?");
+			System.out.println("c. Return to main command line menu?");
+
 			String option = scan.nextLine();
 			if (option.charAt(0)=='a'||option.charAt(0)=='A'){
 				System.out.println("Please type the path to the new Database you would like to add from the list:");
@@ -163,14 +177,16 @@ public class menu {
 				addorremoveDB= new addOrRemoveDB();
 				addorremoveDB.addDB(databasePath);
 				System.out.println("You have successfully added a new Database to the list");
-
+				
+				
 				}
 		  	else if (option.charAt(0)=='b'||option.charAt(0)=='B'){
 				System.out.println("Please select a Database you would like to remove from the list");
 
-				int fileNumber=scan.nextInt();
+				int fileNumber=Integer.parseInt(scan.nextLine());
 				if (databaseList[fileNumber]== null){
 					System.out.println("Invalid Option");
+					System.exit(0);
 				}
 				else{
 					String lineToRemove = databaseList[fileNumber];
@@ -180,7 +196,10 @@ public class menu {
 				}
 
 		  	}
-			else 		System.out.println("Invalid Option");
+		  	else if (option.charAt(0)=='c'||option.charAt(0)=='C'){
+		  		loop1=false;
+		  	}
+			else 		System.out.println("Invalid Option. Please select another option.");
 	
 			}
 	
@@ -198,7 +217,7 @@ public class menu {
 		int fileNumber;	
 		String database1="";
 
-		fileNumber=scan.nextInt();
+		fileNumber=Integer.parseInt(scan.nextLine());
 		if (databaseList[fileNumber]== null){
 			System.out.println("Invalid Option");
 			System.exit(0);
@@ -212,8 +231,9 @@ public class menu {
 		System.out.println("a. Add a question to the Database?");
 		System.out.println("b. Edit a quesion from the Database?");
 		System.out.println("c. Remove a quesion from the Database?");
+		System.out.println("d. Return to main command line menu?");
 
-		String option = scan.next();
+		String option = scan.nextLine();
 		
 		if (option.charAt(0)=='a'||option.charAt(0)=='A'){
 		  	addOrEditQuestionsFromDB add = new addOrEditQuestionsFromDB(databaseList[fileNumber]);
@@ -228,13 +248,19 @@ public class menu {
 			String difficultyNumber=scan.nextLine();
 			System.out.println("Enter the Instruction:");
 			String instruction=scan.nextLine();
-			System.out.println("Enter the Latex/HTML Question:");
+			System.out.println("Enter the Question Graph Path:");
+			String graph=scan.nextLine();
+			System.out.println("Enter the Answer:");
+			String latex_a=scan.nextLine();
+			System.out.println("Enter the Answer Graph Path:");
+			String graph_a=scan.nextLine();
+			System.out.println("Enter the Latex Question:");
 			String lQuestion=scan.nextLine();
 			System.out.println("Enter the Jeopardy Question:");
 			String jQuestion=scan.nextLine();
 			System.out.println("Enter the Jeopardy Answer:");
 			String jAnswer=scan.nextLine();
-		  	add.addNewElement(subjectName, sectionNumber, topicName, difficultyNumber, instruction, lQuestion, jQuestion, jAnswer);
+		  	add.addNewElement(subjectName, sectionNumber, topicName, difficultyNumber, instruction, graph, latex_a, graph_a, lQuestion, jQuestion, jAnswer);
 
 		}
 		else if (option.charAt(0)=='b'||option.charAt(0)=='B'){
@@ -261,9 +287,12 @@ public class menu {
 					"\n d. topic" +
 					"\n e. difficulty" +
 					"\n f. latex_instruction" +
-					"\n g. latex_q" +
-					"\n h. jeopardy_q" +
-					"\n i. jeopardy_a");
+					"\n g. graph" +
+					"\n h. latex_a" +
+					"\n i. graph_a" +
+					"\n j. latex_q" +
+					"\n k. jeopardy_q" +
+					"\n l. jeopardy_a");
 			tagname=scan.next();
 			if (tagname.charAt(0)=='a'||tagname.charAt(0)=='A')
 				tagname="id";
@@ -272,15 +301,23 @@ public class menu {
 			else if (tagname.charAt(0)=='c'||tagname.charAt(0)=='C')
 				tagname="section";
 			else if (tagname.charAt(0)=='d'||tagname.charAt(0)=='D')
-				tagname="difficulty";
-			else if (tagname.charAt(0)=='e'||tagname.charAt(0)=='E')
 				tagname="topic";
+			else if (tagname.charAt(0)=='e'||tagname.charAt(0)=='E')
+				tagname="difficulty";
 			else if (tagname.charAt(0)=='f'||tagname.charAt(0)=='F')
 				tagname="latex_instruction";
 			else if (tagname.charAt(0)=='g'||tagname.charAt(0)=='G')
-				tagname="latex_q";
+				tagname="graph";
 			else if (tagname.charAt(0)=='h'||tagname.charAt(0)=='H')
+				tagname="latex_a";
+			else if (tagname.charAt(0)=='i'||tagname.charAt(0)=='I')
+				tagname="graph_a";
+			else if (tagname.charAt(0)=='j'||tagname.charAt(0)=='J')
+				tagname="latex_q";
+			else if (tagname.charAt(0)=='k'||tagname.charAt(0)=='K')
 				tagname="jeopardy_q";
+			else if (tagname.charAt(0)=='l'||tagname.charAt(0)=='L')
+				tagname="jeopardy_a";
 			else {		
 				System.out.println("Invalid Option ");
 				System.exit(0);
@@ -315,9 +352,11 @@ public class menu {
 
 
 		}
-		else 		System.out.println("Invalid Option");
+		else if (option.charAt(0)=='d'||option.charAt(0)=='D'){
+			loop2=false;
+		}
+		else 		System.out.println("Invalid Option. Please select another option.");
 
 
 }}
-
 

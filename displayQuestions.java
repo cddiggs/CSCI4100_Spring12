@@ -21,8 +21,10 @@ public class displayQuestions {
 	 * @throws InterruptedException
 	 */
 	public void display() throws IOException, InterruptedException {
-
-	
+		Process p;
+	       p = Runtime.getRuntime().exec("rm -r ./display");
+	      p.waitFor();
+	      
        LatexFile database1 = null;
    	database1 = new LatexFile(testname + ".tex",file);
    	database1.WriteLatexHead(testname);
@@ -35,7 +37,7 @@ public class displayQuestions {
    	database2.WriteAllhtmlQuestions();
    	database2.GenerateAllHtml(testname);
 
-   	Process p;
+   	
        p = Runtime.getRuntime().exec("firefox " + "./" + testname + "/index.html");
        p.waitFor();
 
