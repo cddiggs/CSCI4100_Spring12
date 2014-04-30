@@ -49,11 +49,11 @@ public class addOrRemoveDB {
 	 */
 	public void addDB(String databasePath) throws IOException, ParserConfigurationException, SAXException, TransformerException, InterruptedException{
 		BufferedWriter writer = new BufferedWriter(new FileWriter("./src/database.txt",true));
-		
+
 		writer.append(databasePath);
 		writer.newLine();
 		writer.close();
-		
+
 		File f = new File(databasePath);
 		if(!f.exists() && !f.isDirectory()) {
 			writer = new BufferedWriter(new FileWriter(databasePath,true));
@@ -63,7 +63,7 @@ public class addOrRemoveDB {
 			writer.newLine();
 
 			writer.close();
-			
+
 			addOrEditQuestionsFromDB add = new addOrEditQuestionsFromDB(databasePath);
 			Scanner scan = new Scanner(System.in);
 			System.out.println("Enter the Subject:");
@@ -88,7 +88,7 @@ public class addOrRemoveDB {
 			String jQuestion=scan.nextLine();
 			System.out.println("Enter the Jeopardy Answer:");
 			String jAnswer=scan.nextLine();
-		  	add.addNewElement(subjectName, sectionNumber, topicName, difficultyNumber, instruction, graph, latex_a, graph_a, lQuestion, jQuestion, jAnswer);
+			add.addNewElement(subjectName, sectionNumber, topicName, difficultyNumber, instruction, graph, latex_a, graph_a, lQuestion, jQuestion, jAnswer);
 
 		}
 	}
@@ -100,7 +100,7 @@ public class addOrRemoveDB {
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
-	
+
 	public void removeDB(String lineToRemove) throws IOException, InterruptedException{
 		BufferedReader reader = new BufferedReader(new FileReader("./src/database.txt"));
 		BufferedWriter writer = new BufferedWriter(new FileWriter("./src/tempDatabase.txt",true));
@@ -108,16 +108,16 @@ public class addOrRemoveDB {
 		String currentLine;
 
 		while((currentLine = reader.readLine()) != null) {
-		    // trim newline when comparing with lineToRemove
-		    String trimmedLine = currentLine.trim();
-		    if(trimmedLine.equals(lineToRemove)) continue;
-		    writer.write(currentLine);
+			// trim newline when comparing with lineToRemove
+			String trimmedLine = currentLine.trim();
+			if(trimmedLine.equals(lineToRemove)) continue;
+			writer.write(currentLine);
 			writer.newLine();					
-			}	
+		}	
 		writer.close();
-    	Process p;
-        p = Runtime.getRuntime().exec("mv ./src/tempDatabase.txt ./src/database.txt");
-        p.waitFor();
-        reader.close();
+		Process p;
+		p = Runtime.getRuntime().exec("mv ./src/tempDatabase.txt ./src/database.txt");
+		p.waitFor();
+		reader.close();
 	}
 }

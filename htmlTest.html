@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JB4</title>
+		<style>
+			table,th,td, #prompt, span, #answer {
+				border:3px solid black;
+				background-color:#2A3698;
+				color:#FFFF5F;
+				text-align:center;
+				vertical-align:middle;
+				padding:5px;
+				width:19%;
+				height:60px;
+				font-size:20px;
+			}
+			table, #prompt {
+				margin-left:auto;
+				margin-right:auto;
+			}
+			td:hover { border:3px solid #FFFF00; }
+			a { text-decoration:none; }
+			a:link,a:hover,a:active, a:visited { color:#FFFF00; }
+			#prompt { display:none; }
+			.hide { display:none; }
+			#prompt.hide();
+		</style>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+		</script>
+		<script type="text/javascript">
+			var prompt = {}
+			prompt.show = function(questionID) {
+				$("#question").html($('#q' + questionID).html());
+				$("#answer").html($('#a' + questionID).html());
+				$("#prompt").fadeIn(1000);
+				$("#gameBoard").hide();
+			}
+			prompt.hide = function() {
+				$("#gameBoard").fadeIn(1000);
+				$("#answer").hide();
+				$("#prompt").hide();
+			}
+			prompt.correctAnswer = function() {
+				$("#answer").fadeIn(1000);
+			}
+		</script>
+	</head>
+	<body>
+	<table id="gameBoard">
+		<tr>
+			<th>Calculus I</th>
+		</tr>
+		<tr>
+			<td id="td00" onclick='prompt.show("00")'>
+				<div class="hide" id="q00">Test</div>
+				<div class="hide" id="a00">Test</div>
+				<h3>200</h3>
+			</td>
+		</tr>
+		<tr>
+			<td id="td01" onclick='prompt.show("01")'>
+				<div class="hide" id="q01">Test</div>
+				<div class="hide" id="a01">Test</div>
+				<h3>400</h3>
+			</td>
+		</tr>
+		<tr>
+			<td id="td02" onclick='prompt.show("02")'>
+				<div class="hide" id="q02">Test</div>
+				<div class="hide" id="a02">Test</div>
+				<h3>600</h3>
+			</td>
+		</tr>
+		<tr>
+			<td id="td03" onclick='prompt.show("03")'>
+				<div class="hide" id="q03">Test</div>
+				<div class="hide" id="a03">Test</div>
+				<h3>800</h3>
+			</td>
+		</tr>
+		<tr>
+			<td id="td04" onclick='prompt.show("04")'>
+				<div class="hide" id="q04">Test</div>
+				<div class="hide" id="a04">Test</div>
+				<h3>1000</h3>
+			</td>
+		</tr>
+	</table>
+		<div id="prompt" class="hide">
+			<h2 id="question"></h2>
+			<p><span><a href="javascript:prompt.correctAnswer();">Answer</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="javascript:prompt.hide();">Continue</a></span></p>
+			<h2 id="answer" class="hide">blah</h2>
+		</div>
+	</body>
+</html>

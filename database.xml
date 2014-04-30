@@ -6,12 +6,12 @@
 	     <topic>limit</topic>
 	     <difficulty>1</difficulty>
              <latex_instructions>Determine the infinite limit:</latex_instructions>
-             <graph>_</graph>
-             <latex_a>_</latex_a>
-             <graph_a>_</graph_a>
+             <graph>JP.jpeg</graph>
+             <latex_a>\frac{\sqrt[3]{2}}{3}</latex_a>
+             <graph_a>JP.jpeg</graph_a>
 	     <latex_q>\lim_{x \to -3} \frac{x + 2}{x + 3}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -25,8 +25,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>\lim_{x \to 2\pi^-} x csc x</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>TEst</jeopardy_q>
+	     <jeopardy_a>TEst</jeopardy_a>
 	</question>
 
 	<question>
@@ -40,8 +40,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>\lim_{x \to 2} \frac{x^2 + x - 6}{x - 2}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	     <instructions>_</instructions>
 	</question>
 
@@ -56,8 +56,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>\lim_{x \to 16} \frac{4 - \sqrt{x}}{16x - x^2}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -72,8 +72,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>\lim{x \to 4} \frac{5 + \sqrt{x}}{\sqrt{5 + x}}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -87,8 +87,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>\lim{x \to 1} e^{x^2 - x}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -102,8 +102,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>\lim{x \to \infty} \frac{1}{2x + 3}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -118,8 +118,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>\lim{x \to \infty} (\sqrt{9x^2 + x} - 3x)</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -134,8 +134,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>f(x) = 3 - 2x + 4x^2</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -150,8 +150,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>f(t) = 100 + 50t - 4.9t^2</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -166,8 +166,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>y = x^{-2/5}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -182,8 +182,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>u = \sqrt[5]{t} + 4\sqrt{t^5}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -198,8 +198,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>f(x) = (x^3 + 2x)e^x</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -214,8 +214,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>y = \frac{x^3}{1 - x^2}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -230,8 +230,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>f(x) = 3x^2 - 2</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -246,8 +246,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q>\frac{3\pi}{2}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -262,8 +262,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q> F(x) = (x^4 + 3x^2 - 2)^5</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -278,8 +278,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q> y = (2x - 5)^4(8x^2 - 5)^{-3}</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -294,8 +294,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q> x^3 + y^3 = 1</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -310,8 +310,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q> e^y cos x = 1 + sin(xy)</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	</question>
 
 	<question>
@@ -326,8 +326,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q> f(x) = sin(ln x)</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	     
 	</question>
 
@@ -343,8 +343,8 @@
              <latex_a>_</latex_a>
              <graph_a>_</graph_a>
 	     <latex_q> y = ln(e^{-x} + xe^{-x})</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	    
 	</question>
 
@@ -364,8 +364,8 @@
 	     <html_a>_</html_a>
              <latex_instructions>_</latex_instructions>
 	     <latex_q>_</latex_q>
-	     <jeopardy_q>_</jeopardy_q>
-	     <jeopardy_a>_</jeopardy_a>
+	     <jeopardy_q>Test</jeopardy_q>
+	     <jeopardy_a>Test</jeopardy_a>
 	     <instructions>_</instructions>
 	</question>
 

@@ -17,27 +17,49 @@
  * \section Specifications
  * 
  * The user has the option to create a PDF test, HTML test, or Jeopardy Board. If the user chooses to create a PDF/HTML test, the user will have two methods of creating the test, either by random questions or by specific questions.
- * <CENTER> <B> PDF/HTML Test with Random Questions </B> </CENTER>
+ * <CENTER> <B> PDF/HTML Test  </B> </CENTER>
 
+The user will be prompted with choices that include: 
 
-If the user would like to create a test with random the questions, the user must select a database to choose questions from, and input the following: test name, subject, sections, range of difficulty, and the number of questions. The out put can be either PDF or HTML test depending on the user's desire.
- 
- * <CENTER> <B> PDF/HTML Test with Specific Questions </B> </CENTER>
+<B>1. Add specific Question:</B> When this option is selected the user will input the amount of questions  and the question IDs desired for the test. 
 
+<VAR>Pre-condition:</VAR> Image/graph has to be in the database as the tag name value
+(EX: <graph>one.jpeg</graph>). And also the image needs to be in the correct directory
+<VAR>Post-condition:</VAR> Will output desired questions via ID numbers.
 
-If the user would like to create a test with specific questions, the user must select a database to choose questions from, and input the question IDs of all the questions that should appear on the test. The output can be either PDF or HTML test depending on the user's desire.
+<B>2. Add All Questions:</B> This will generate a Latex/PDF file with all questions in the database.
 
-In addition, if the user wanted to create a test with specific questions, then the user will specify if a question includes an image (JPG format). Once done, the user will specify the path to the image. (In order for a graph/picture to be provided, a path has to be specified to retrieve the image.) Once done, it will generate the question, the image, plus the other questions. In the instance the test doesn't include a graph, the user will simply go through the specified inputs: test name, subject, sections, and the number of questions. Furthermore, there will be an answering key provided for the user if the user wants a answering key with the solutions. (This will be prompted at the end after the test has been generated.)
- 
+<B>3. Add Specific Solutions:</B> Similar to the Specific Questions the user will be prompted to give
+the number of solution and then the corresponding ID numbers of the solutions to the desired
+Questions.
+
+<B>4. Add All Solutions:</B> This will generate a Latex/PDF file with all the Solutions in the database.
+
+<B>5. Add Random Questions:</B> This will prompt the user to give a specific range of question ID
+he would like the random numbers to come from, he then inputs the number of questions selected
+
+<B>6. Move image to current directory:</B> This will prompt the user to give the <EM>complete</EM> path of an image and will move the image to the current directory. (For example, the complete path is "/home/user/Desktop/image.jpeg.")
  * <CENTER> <B> Jeopardy Board </B> </CENTER>
 
 
 If the user would like to create a Jeopardy Board the user must input the number of categories/subjects, number of questions per category, the starting point value and how many points to the next point value (i.e. start each category with a 100 pt question then add 100 points to each of the following questions) and time for each question. The output would be a HTML file with the category names and the points displayed. When a point value is clicked, the question for that point value appears on screen or new window, and a timer starts. When either the game host ends the question or the time expires for the question, the answer is displayed.
 
 
+<CENTER><B> Output  </B></CENTER>
+
+- PDF Test: The output for a PDF Test will be located in current directory. 
+
+- HTML Test:The output for a PDF Test will be located in a folder named after the test. This folder is located in the current directory. 
+
+- Jeopardy Board: The output for a Jeopardy Board will be in file named "htmlTest.html" located in the current directory. 
+
+
+
  * <CENTER> <B> GUI Menu </B> </CENTER>
 
 Should the user wish to use a graphical interface, there will be a GUI available which will serve a purpose much like the command line menu. It will offer a button interface that will allow the user to select an option: PDF Test, HTML Test, or Jeopardy Board. From that point it will allow the user to enter in the specifications with which the option will be performed. After entering the specifications the requested task will be performed.
+
+
 
  * <CENTER> <B> Database Management </B> </CENTER>
  * 
@@ -70,6 +92,12 @@ The database will have the general layout as follows:
 - When displaying the database, the program will launch the generated HTML file into Firefox in order to view the questions and all fields in the database. Thus, Firefox is required to display questions.
  	
 - The questions in the database are numbered in ascending order as the question ID or <id> </id> field. You should not change a question ID of an existing question to a number greater than the number of questions in the database. 
+
+- If there is a graph to the question or solution, then the user must include the extension of the image (i.e. ".jpeg", ".gif"). The name of the image can not have '_' as the first character of the name. Also, the image must be located in the current directory. (There will be a method to move an image from one location to current directory when making a PDF/HTML Test.)
+
+- When creating a new HTML Test, you can not overwrite an existing HTML Test. Therefore, each HTML Test must have a unique name or that the test folder is moved or deleted from the current working directory.
+
+- When choosing specific questions for a PDF/HTML Test, be sure that the question ID exists in the database.
 
  * \section UML Class Diagram
  * <IMG SRC=UMLDiagram.png>

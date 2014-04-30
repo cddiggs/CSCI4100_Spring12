@@ -14,7 +14,7 @@ public class displayQuestions {
 		testname=tn;
 		file=f;
 	}
-	
+
 	/**
 	 * This method writes the questions to a html file then opens in the Firefox browser
 	 * @throws IOException
@@ -22,24 +22,24 @@ public class displayQuestions {
 	 */
 	public void display() throws IOException, InterruptedException {
 		Process p;
-	       p = Runtime.getRuntime().exec("rm -r ./display");
-	      p.waitFor();
-	      
-       LatexFile database1 = null;
-   	database1 = new LatexFile(testname + ".tex",file);
-   	database1.WriteLatexHead(testname);
-       database1.WriteAllLatexQuestions();
+		p = Runtime.getRuntime().exec("rm -r ./display");
+		p.waitFor();
+
+		LatexFile database1 = null;
+		database1 = new LatexFile(testname + ".tex",file);
+		database1.WriteLatexHead(testname);
+		database1.WriteAllLatexQuestions();
 		database1.WriteLatexFoot();
-		
 
-       htmlFile database2 = null;
-   	database2 = new htmlFile(file);
-   	database2.WriteAllhtmlQuestions();
-   	database2.GenerateAllHtml(testname);
 
-   	
-       p = Runtime.getRuntime().exec("firefox " + "./" + testname + "/index.html");
-       p.waitFor();
+		htmlFile database2 = null;
+		database2 = new htmlFile(file);
+		database2.WriteAllhtmlQuestions();
+		database2.GenerateAllHtml(testname);
 
-}
+
+		p = Runtime.getRuntime().exec("firefox " + "./" + testname + "/index.html");
+		p.waitFor();
+
+	}
 }
