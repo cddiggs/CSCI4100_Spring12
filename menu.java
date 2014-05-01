@@ -30,7 +30,7 @@ public class menu {
 		String option = scan.nextLine();
 
 		if (option.charAt(0)=='a'||option.charAt(0)=='A'){
-			GUIMenu menu = new GUIMenu();
+			GUIMenu.createAndShowGUI();
 		}
 		else if (option.charAt(0)=='b'||option.charAt(0)=='B'){
 			while(true)
